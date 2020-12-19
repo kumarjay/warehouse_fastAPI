@@ -1,4 +1,5 @@
 -f https://download.pytorch.org/whl/torch_stable.html
+--find-links https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.7/index.html
 torch==1.7.1+cpu
 absl-py==0.11.0
 aiofiles==0.6.0
