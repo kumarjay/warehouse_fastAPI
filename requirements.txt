@@ -65,8 +65,8 @@ tensorboard==2.4.0
 tensorboard-plugin-wit==1.7.0
 termcolor==1.1.0
 #torch==1.7.1
-torchaudio==0.7.0a0+a853dff
-torchvision==0.8.2
+#torchaudio==0.7.0a0+a853dff
+#torchvision==0.8.2
 tqdm==4.54.1
 typing-extensions # @ file:///tmp/build/80754af9/typing_extensions_1598376058250/work
 urllib3==1.26.2
