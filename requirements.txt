@@ -35,12 +35,12 @@ matplotlib==3.3.3
 #mkl-fft==1.2.0
 #mkl-random==1.1.1
 #mkl-service==2.3.0
-numpy @ file:///tmp/build/80754af9/numpy_and_numpy_base_1603487797006/work
+numpy
 oauthlib==3.1.0
 olefile==0.46
 opencv-python==4.4.0.46
 pandas==1.1.5
-Pillow @ file:///tmp/build/80754af9/pillow_1603822238230/work
+Pillow
 portalocker==2.0.0
 protobuf==3.14.0
 pyasn1==0.4.8
