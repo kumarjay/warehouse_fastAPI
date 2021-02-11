@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  fast-api:
+    build: .
+    container_name: "warehouse_03"
+    restart: "always"
+    ports:
+      - "8000:8000"

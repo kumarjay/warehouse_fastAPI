@@ -8,6 +8,12 @@ from fastapi.responses import FileResponse
 import os
 import shutil
 import pymongo
+import boto3
+import glob
+from boto3.session import Session
+
+ACCESS_KEY='AKIAVALSLCZV57M3VZKG'
+SECRET_KEY='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'
 
 # from warehouse_box import Box
 from configuration import configuration_model
@@ -55,6 +61,8 @@ from sqlalchemy.orm import sessionmaker
 #
 # Base = declarative_base()
 
+pth_filename= 'model_final.pth'
+
 app = FastAPI()
 
 dbAtlas= pymongo.MongoClient("mongodb+srv://user:user@cluster0.2jv3l.mongodb.net/warehouse_01?retryWrites=true&w=majority")
@@ -70,6 +78,12 @@ classes= ['Pallet Jacks', 'Rolling Ladder', 'Wire Mesh', 'Bulk Box', 'Totes',
 warehouse_metadata = MetadataCatalog.get("experiment1/train").set(thing_classes=classes)
 print('metadata...', warehouse_metadata)
 print('metadata....', os.getcwd())
+
+if not os.path.exists(pth_filename):
+    print('filename is.......', pth_filename)
+    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
+    s3.download_file('lambda-ineuron01', pth_filename, pth_filename)
+    print('Model downloaded......', glob.glob('*'))
 
 
 db = []
@@ -137,7 +151,8 @@ def create_upload_files(image: UploadFile = File(...)):
     # print('image name....', self.window.filename)
     print('image shape is.....', img.shape)
 
-    predictor = configuration_model()
+    predictor = configuration_model(pth_filename)
+    print('predictor is...', predictor)
 
     output = predictor(img)
     visualizer = Visualizer(img[:, :, ::-1], metadata=warehouse_metadata, scale=0.5)
@@ -145,6 +160,7 @@ def create_upload_files(image: UploadFile = File(...)):
     img_out = Image.fromarray(out.get_image()[:, :, ::-1])
 
     prediction= output['instances'].pred_classes.numpy()
+    print('prediction is....', prediction)
     dict_list= list(set(prediction))
     dict_= {}
 
@@ -188,4 +204,7 @@ def _save_file_to_disk(uploaded_file, path=".", save_as="default"):
 
 
 if __name__ == '__main__':
+    print('just entered........')
+
+    print('list....', glob.glob('*'))
     uvicorn.run(app, host='127.0.0.1', port=8000)

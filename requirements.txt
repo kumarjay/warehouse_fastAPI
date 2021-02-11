@@ -3,13 +3,14 @@
 torch==1.7.1+cpu
 absl-py==0.11.0
 aiofiles==0.6.0
+boto3
 cachetools==4.2.0
 certifi==2020.12.5
 chardet==4.0.0
 click==7.1.2
 cloudpickle==1.6.0
 cycler==0.10.0
-Cython==0.29.21
+Cython
 dataclasses==0.8
 detectron2==0.3+cpu
 dnspython==1.16.0
@@ -45,7 +46,7 @@ portalocker==2.0.0
 protobuf==3.14.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-pycocotools==2.0.2
+pycocotools
 pydantic==1.7.3
 pydot==1.4.1
 pymongo==3.11.2
@@ -66,7 +67,7 @@ tensorboard-plugin-wit==1.7.0
 termcolor==1.1.0
 #torch==1.7.1
 #torchaudio==0.7.0a0+a853dff
-#torchvision==0.8.2
+torchvision==0.8.2+cpu
 tqdm==4.54.1
 typing-extensions # @ file:///tmp/build/80754af9/typing_extensions_1598376058250/work
 urllib3==1.26.2
