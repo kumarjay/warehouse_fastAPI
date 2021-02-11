@@ -83,7 +83,7 @@ if not os.path.exists(pth_filename):
     print('filename is.......', pth_filename)
     s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
     s3.download_file('lambda-ineuron01', pth_filename, pth_filename)
-    print('Model downloaded......', glob.glob('*'))
+    print('Model downloaded.......', glob.glob('*'))
 
 
 db = []
