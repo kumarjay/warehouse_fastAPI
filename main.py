@@ -12,8 +12,8 @@ import boto3
 import glob
 from boto3.session import Session
 
-ACCESS_KEY='AKIAVALSLCZV57M3VZKG'
-SECRET_KEY='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'
+ACCESS_KEY= ${{ secrets.ACCESS_KEY }}
+SECRET_KEY= ${{ secrets.SECRET_KEY }}
 
 # from warehouse_box import Box
 from configuration import configuration_model
@@ -79,11 +79,24 @@ warehouse_metadata = MetadataCatalog.get("experiment1/train").set(thing_classes=
 print('metadata...', warehouse_metadata)
 print('metadata....', os.getcwd())
 
-if not os.path.exists(pth_filename):
-    print('filename is.......', pth_filename)
-    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
-    s3.download_file('lambda-ineuron01', pth_filename, pth_filename)
-    print('Model downloaded.......', glob.glob('*'))
+if not os.path.exists('distilbert_model_50Epochs'):
+    os.mkdir('distilbert_model_50Epochs')
+    print('access key......', SECRET_KEY)
+    print('secret key......',ACCESS_KEY)
+    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY,
+                      aws_secret_access_key=SECRET_KEY)
+    s3_resource = boto3.resource('s3', aws_access_key_id=ACCESS_KEY,
+                      aws_secret_access_key=SECRET_KEY)
+    my_bucket = s3_resource.Bucket('distilbertmodel50epochs')
+    for s3_object in my_bucket.objects.all():
+        filename = s3_object.key
+        my_bucket.download_file(s3_object.key, filename)
+
+#if not os.path.exists(pth_filename):
+    # print('filename is.......', pth_filename)
+    # s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
+    # s3.download_file('lambda-ineuron01', pth_filename, pth_filename)
+    # print('Model downloaded.......', glob.glob('*'))
 
 
 db = []
